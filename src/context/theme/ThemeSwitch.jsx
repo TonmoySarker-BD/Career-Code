@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from './ThemeContext';
-import day from '../assets/dayMode.png';
-import night from '../assets/nightMode.png';
+import day from '../../assets/dayMode.png';
+import night from '../../assets/nightMode.png';
 
 const ThemeSwitch = () => {
     const { theme, toggleTheme } = useTheme();

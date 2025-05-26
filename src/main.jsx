@@ -3,12 +3,12 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { router } from './Routes.jsx'
 import { RouterProvider } from 'react-router'
-import { ThemeProvier } from './context/theme/ThemeContext.jsx'
+import { ThemeProvider } from './context/theme/ThemeContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ThemeProvier>
+    <ThemeProvider>
       <RouterProvider router={router} />
-    </ThemeProvier>
+    </ThemeProvider>
   </StrictMode>,
 )
