@@ -1,11 +1,14 @@
 import { NavLink } from 'react-router';
 import ThemeSwitch from '../../context/theme/ThemeSwitch';
+import logo from "../../assets/logo.png"
 
 const NavBar = () => {
     const menu = <>
-        <li><NavLink to="/">Home</NavLink></li>
-        <li><NavLink to="/About">About</NavLink></li>
-        <li><NavLink to="/contact">Contact</NavLink></li>
+        <li className='font-semibold'><NavLink to="/">Home</NavLink></li>
+        <li className='font-semibold'><NavLink to="/Find-Jobs">Find Jobs</NavLink></li>
+        <li className='font-semibold'><NavLink to="/Recruiters">Recruiters</NavLink></li>
+        <li className='font-semibold'><NavLink to="/Blog">Blog</NavLink></li>
+        <li className='font-semibold'><NavLink to="/Contact">Contact</NavLink></li>
 
     </>
     return (
@@ -24,7 +27,11 @@ const NavBar = () => {
                         {menu}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <NavLink to={"/"} className="text-xl cursor-pointer"> <div className="flex items-center">
+                    <img width="50"
+                        height="50" src={logo} alt="Opptly Logo" />
+                    <p className='text-3xl font-bold text-purple-900'>Opptly</p>
+                </div></NavLink>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -33,7 +40,7 @@ const NavBar = () => {
             </div>
             <div className="navbar-end flex items-center gap-2">
                 <ThemeSwitch />
-                <a className="btn">Button</a>
+                <a className="btn bg-purple-900 text-white">Sign In</a>
             </div>
         </div>
     );
