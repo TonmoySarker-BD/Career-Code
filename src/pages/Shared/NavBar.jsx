@@ -40,7 +40,7 @@ const NavBar = () => {
             </div>
             <div className="navbar-end flex items-center gap-2">
                 <ThemeSwitch />
-                <a className="btn bg-purple-900 text-white">Sign In</a>
+                <NavLink to={"/SignIn"} className="btn bg-purple-900 text-white">Sign In</NavLink>
             </div>
         </div>
     );
