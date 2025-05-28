@@ -1,17 +1,31 @@
-import React from 'react';
+import React, { use } from 'react';
 import { NavLink } from 'react-router';
 import Lottie from 'lottie-react';
 import logo from '../../assets/logo.png';
 import SignInAnimation from '../../assets/lottie/register.json'; // use another lottie if available
+import { AuthContext } from '../../context/auth/AuthContext';
+
 
 const SignIn = () => {
+    const {signInUser} = use(AuthContext);
     const handleSignIn = (e) => {
         e.preventDefault();
-        // Add sign-in logic here
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        signInUser(email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log("Signed in:", user);
+            })
+            .catch((error) => {
+                console.error(error.message);
+                alert("Login failed: " + error.message);
+            });
     };
 
     return (
-        <div className="flex flex-col-reverse lg:flex-row items-center max-w-5xl mx-auto px-6 py-12 lg:px-8">
+        <div className="flex flex-col lg:flex-row items-center max-w-5xl mx-auto px-6 py-12 lg:px-8">
             {/* Form Section */}
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <div className="sm:mx-auto sm:w-full">

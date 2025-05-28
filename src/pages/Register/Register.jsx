@@ -1,17 +1,43 @@
-import React from 'react';
+import React, { use } from 'react';
 import { NavLink } from 'react-router';
 import Lottie from 'lottie-react';
 import logo from '../../assets/logo.png';
 import RegisterAnimation from '../../assets/lottie/register.json';
+import { AuthContext } from '../../context/auth/AuthContext';
 
 const Register = () => {
-    const handleRegister = (e) => {
+
+    const { createUser } = use(AuthContext);
+
+
+    const handleRegister = async(e) => {
         e.preventDefault();
-        // Add your registration logic here
+        const form = e.target;
+        const name = form.Name.value;
+        const photoURL = form.PhotoURL.value;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        try {
+            const userCredential = await createUser(email, password);
+            const user = userCredential.user;
+
+            // Update display name and photo URL
+            // await user.updateProfile({ displayName: name, photoURL });
+
+            console.log('User registered and profile updated:', user);
+
+            // Optional: Reset form and provide success feedback
+            form.reset();
+            alert('Registration successful!');
+        } catch (error) {
+            console.error('Error registering user:', error);
+            alert(error.message);
+        }
     };
 
     return (
-        <div className="flex flex-col-reverse lg:flex-row items-center max-w-5xl mx-auto px-6 py-12 lg:px-8">
+        <div className="flex flex-col lg:flex-row items-center max-w-5xl mx-auto px-6 py-12 lg:px-8">
             {/* Form Section */}
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <div className="sm:mx-auto sm:w-full">
