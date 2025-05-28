@@ -1,8 +1,14 @@
 import { NavLink } from 'react-router';
 import ThemeSwitch from '../../context/theme/ThemeSwitch';
 import logo from "../../assets/logo.png"
+import { use } from 'react';
+import { AuthContext } from '../../context/auth/AuthContext';
 
 const NavBar = () => {
+
+    const { user } = use(AuthContext);
+
+
     const menu = <>
         <li className='font-semibold'><NavLink to="/">Home</NavLink></li>
         <li className='font-semibold'><NavLink to="/Find-Jobs">Find Jobs</NavLink></li>
@@ -40,7 +46,27 @@ const NavBar = () => {
             </div>
             <div className="navbar-end flex items-center gap-2">
                 <ThemeSwitch />
-                <NavLink to={"/SignIn"} className="btn bg-primary text-white">Sign In</NavLink>
+                {user ? (
+                    <div className="dropdown dropdown-end">
+                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                            <div className="w-10 rounded-full">
+                                <img
+                                    alt="Tailwind CSS Navbar component"
+                                    src={user.photoURL} />
+                            </div>
+                        </div>
+                        <ul
+                            tabIndex={0}
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                            <li><a>Profile</a>
+                            </li>
+                            <li><a>Settings</a></li>
+                            <li><a>Logout</a></li>
+                        </ul>
+                    </div>
+                ) : (
+                    <NavLink to="/login" className="btn btn-primary">Login</NavLink>
+                )}
             </div>
         </div>
     );

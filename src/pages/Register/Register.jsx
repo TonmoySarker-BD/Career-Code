@@ -7,7 +7,7 @@ import { AuthContext } from '../../context/auth/AuthContext';
 
 const Register = () => {
 
-    const { createUser } = use(AuthContext);
+    const { createUser, updateUser } = use(AuthContext);
 
 
     const handleRegister = async(e) => {
@@ -23,13 +23,10 @@ const Register = () => {
             const user = userCredential.user;
 
             // Update display name and photo URL
-            // await user.updateProfile({ displayName: name, photoURL });
+            await updateUser({ displayName: name, photoURL: photoURL });
 
             console.log('User registered and profile updated:', user);
 
-            // Optional: Reset form and provide success feedback
-            form.reset();
-            alert('Registration successful!');
         } catch (error) {
             console.error('Error registering user:', error);
             alert(error.message);
