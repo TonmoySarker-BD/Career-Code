@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, updateProfile} from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile} from "firebase/auth";
 import { createContext, useState } from "react";
 import { auth } from "../../firebase/firebase.init";
 
@@ -23,6 +23,16 @@ export const AuthProvider = ({ children }) => {
         return updateProfile(auth.currentUser, userInfo);
     }
 
+    const forgotPassword = (email) => {
+        setLoading(true);
+        return sendPasswordResetEmail(auth, email);
+    }
+
+    const logout = () => {
+        setLoading(true);
+        return signOut(auth);
+    }
+
     useState(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
@@ -31,12 +41,20 @@ export const AuthProvider = ({ children }) => {
         return () => unsubscribe();
     }, []);
 
+    if (loading) {
+        return <div className="flex justify-center items-center h-screen">
+            <button className="btn loading">Loading</button>
+        </div>;
+    }
+
     const authInfo = {
             createUser,
             signInUser,
             loading,
             user,
-            updateUser
+            updateUser,
+            logout,
+            forgotPassword
         };
     
     return (

@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { use } from 'react';
 import { NavLink } from 'react-router';
 import Lottie from 'lottie-react';
 import logo from '../../assets/logo.png';
 import ForgotAnimation from '../../assets/lottie/register.json';
+import { AuthContext } from '../../context/auth/AuthContext';
 
 const ForgotPassword = () => {
+  const {forgotPassword} = use(AuthContext)
   const handleReset = (e) => {
     e.preventDefault();
     // Add password reset logic (e.g., Firebase)
+    const email = e.target.email.value;
+    forgotPassword(email)
+      .then(() => {
+        alert('Password reset email sent');
+      })
+      .catch((error) => {
+        console.error('Error sending password reset email:', error);
+        alert(error.message);
+      });
   };
 
   return (
@@ -44,7 +55,7 @@ const ForgotPassword = () => {
           </div>
 
           <button
-            type="submit"
+            type="submit" onClick={handleReset}
             className="w-full rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
           >
             Send Reset Link

@@ -6,8 +6,10 @@ import { AuthContext } from '../../context/auth/AuthContext';
 
 const NavBar = () => {
 
-    const { user } = use(AuthContext);
-
+    const { user, logout } = use(AuthContext);
+    const handleLogout = () => {
+        logout();
+    };
 
     const menu = <>
         <li className='font-semibold'><NavLink to="/">Home</NavLink></li>
@@ -51,7 +53,7 @@ const NavBar = () => {
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
                                 <img
-                                    alt="Tailwind CSS Navbar component"
+                                    alt={user.displayName || "User Avatar"}
                                     src={user.photoURL} />
                             </div>
                         </div>
@@ -61,11 +63,11 @@ const NavBar = () => {
                             <li><a>Profile</a>
                             </li>
                             <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
+                            <li><a onClick={handleLogout}>Logout</a></li>
                         </ul>
                     </div>
                 ) : (
-                    <NavLink to="/login" className="btn btn-primary">Login</NavLink>
+                    <NavLink to="/signin" className="btn btn-primary">Login</NavLink>
                 )}
             </div>
         </div>
