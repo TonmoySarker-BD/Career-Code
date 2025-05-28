@@ -7,7 +7,21 @@ import { AuthContext } from '../../context/auth/AuthContext';
 
 
 const SignIn = () => {
-    const {signInUser} = use(AuthContext);
+    const {signInUser, signInWithGoogle} = use(AuthContext);
+
+    // Handle Google Sign In
+    const handleGoogleSignIn = async () => {
+        try { 
+            const userCredential = await signInWithGoogle();
+            const user = userCredential.user;
+            console.log('User signed in with Google:', user);
+        } catch (error) {
+            console.error('Error signing in with Google:', error);  
+            alert("Google sign-in failed: " + error.message);
+        }
+    };
+
+    // Handle Sign In
     const handleSignIn = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
@@ -40,7 +54,7 @@ const SignIn = () => {
                 </div>
 
                 <div className="mt-6">
-                    <button className="w-full flex items-center justify-center gap-2 rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white shadow hover:bg-indigo-500 focus:outline-2 focus:outline-offset-2 focus:outline-primary">
+                    <button onClick={handleGoogleSignIn} className="w-full flex items-center justify-center gap-2 rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white shadow hover:bg-indigo-500 focus:outline-2 focus:outline-offset-2 focus:outline-primary">
                         <svg
                             aria-label="Google logo"
                             width="24"

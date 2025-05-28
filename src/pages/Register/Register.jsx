@@ -7,8 +7,18 @@ import { AuthContext } from '../../context/auth/AuthContext';
 
 const Register = () => {
 
-    const { createUser, updateUser } = use(AuthContext);
+    const { createUser, updateUser ,signInWithGoogle } = use(AuthContext);
 
+    // Handle Google Sign In
+    const handleGoogleSignIn = async () => {
+        try {
+            const userCredential = await signInWithGoogle();
+            const user = userCredential.user;
+            console.log('User signed in with Google:', user);
+        } catch (error) {
+            console.error('Error signing in with Google:', error);
+        }
+    };
 
     const handleRegister = async(e) => {
         e.preventDefault();
@@ -33,6 +43,8 @@ const Register = () => {
         }
     };
 
+
+
     return (
         <div className="flex flex-col lg:flex-row items-center max-w-5xl mx-auto px-6 py-12 lg:px-8">
             {/* Form Section */}
@@ -49,7 +61,7 @@ const Register = () => {
                 </div>
 
                 <div className="mt-6">
-                    <button className="w-full flex items-center justify-center gap-2 rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white shadow hover:bg-indigo-500 focus:outline-2 focus:outline-offset-2 focus:outline-primary">
+                    <button onClick={handleGoogleSignIn} className="w-full flex items-center justify-center gap-2 rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white shadow hover:bg-indigo-500 focus:outline-2 focus:outline-offset-2 focus:outline-primary">
                         <svg
                             aria-label="Google logo"
                             width="24"
