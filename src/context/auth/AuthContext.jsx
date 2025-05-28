@@ -15,9 +15,9 @@ export const AuthProvider = ({ children }) => {
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
-        const signInWithGoogle = () =>{
+        const signInWithGoogle = () => {
         setLoading(true);
-        return signInWithPopup(auth, googleProvider)
+        return signInWithPopup(auth, googleProvider);
     }
 
     const signInUser = (email, password) => {
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
 
     if (loading) {
         return <div className="flex justify-center items-center h-screen">
-            <button className="btn loading">Loading</button>
+            <span className="loading loading-spinner loading-xl text-primary "></span>
         </div>;
     }
 
